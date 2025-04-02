@@ -12,7 +12,7 @@ OurBlockChainProject_Rollup_Layer2
 ## 跨链桥
 
 ## OP & Rollup
-[Optimism SDK Deprecation Notice](https://docs.optimism.io/notices/sdk-deprecation)  
+[Optimism SDK Deprecation Notice](https://viem.sh/op-stack)  
 
 ## 主链智能合约
 
