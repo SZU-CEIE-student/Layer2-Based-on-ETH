@@ -3,7 +3,7 @@ OurBlockChainProject_Rollup_Layer2
 
 ## 详细分工安排
 - **Notion链接**：  
-  [Notion]([https://solidity-by-example.org/](https://www.notion.so/1c95f57031c080849c3fc2df98be50df?pvs=4)) 
+  [notion](https://www.notion.so/1c95f57031c080849c3fc2df98be50df?pvs=4) 
 ## Solidity 基础
 - **学习例程代码**：  
   [Solidity by Example | 0.8.26](https://solidity-by-example.org/)  
