@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>Transaction Results</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Transaction History for Address: {{ address }}</h1>
+        {% if transactions %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Transaction Hash</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Value (ETH)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tx in transactions %}
+                <tr>
+                    <td>{{ tx.hash }}</td>
+                    <td>
+                        {% if tx.from %}
+                        {{ tx.from }}
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if tx.to %}
+                        {{ tx.to }}
+                        {% else %}
+                        合约创建
+                        {% endif %}
+                    </td>
+                    <td>{{ tx.value }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No transactions found for this address.</p>
+        {% endif %}
+        <a href="{{ url_for('index') }}">Back to Home</a>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>交易详情 - L1 Sepolia</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="tech-background"></div>
+    <div class="container">
+        <header>
+            <div class="tech-header">
+                <div class="tech-line"></div>
+                <h1>交易详情</h1>
+                <div class="tech-line"></div>
+            </div>
+            <a href="{{ url_for('index') }}" class="back-button">返回首页</a>
+        </header>
+
+        <div class="dashboard-vertical">
+            <div class="card transaction-overview">
+                <div class="card-header">
+                    <div class="tech-corner top-left"></div>
+                    <h2>交易概览</h2>
+                    <div class="tech-corner top-right"></div>
+                </div>
+                <div class="transaction-flow">
+                    <div class="address-box from">
+                        <div class="label">发送方</div>
+                        <div class="value">
+                            {% if tx.from %}
+                            {{ tx.from }}
+                            {% else %}
+                            -
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="arrow">
+                        <svg width="40" height="40" viewBox="0 0 40 40">
+                            <path d="M5 20 L35 20 M25 10 L35 20 L25 30" fill="none" stroke="currentColor"
+                                stroke-width="2" />
+                        </svg>
+                    </div>
+                    <div class="address-box to">
+                        <div class="label">接收方</div>
+                        <div class="value">
+                            {% if tx.to %}
+                            {{ tx.to }}
+                            {% else %}
+                            合约创建
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card transaction-details">
+                <div class="card-header">
+                    <div class="tech-corner top-left"></div>
+                    <h2>详细信息</h2>
+                    <div class="tech-corner top-right"></div>
+                </div>
+                <div class="details-grid">
+                    <div class="detail-item">
+                        <div class="label">状态</div>
+                        <div class="value status {{ 'success' if tx.status else 'failed' }}">
+                            {{ '成功' if tx.status else '失败' }}
+                            <span class="confirmations">({{ tx.confirmations }} 个确认)</span>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="label">区块</div>
+                        <div class="value">#{{ tx.block_number }}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="label">时间戳</div>
+                        <div class="value">{{ tx.timestamp }}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="label">交易哈希</div>
+                        <div class="value hash">{{ tx.hash }}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="label">金额</div>
+                        <div class="value amount">{{ tx.value }} ETH</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="label">Gas 价格</div>
+                        <div class="value">{{ tx.gas_price }} Gwei</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="label">Gas 限制</div>
+                        <div class="value">{{ tx.gas_limit }}</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="label">Gas 使用量</div>
+                        <div class="value">{{ tx.gas_used }}</div>
+                    </div>
+                </div>
+            </div>
+
+            {% if tx.input_data %}
+            <div class="card input-data">
+                <div class="card-header">
+                    <div class="tech-corner top-left"></div>
+                    <h2>输入数据</h2>
+                    <div class="tech-corner top-right"></div>
+                </div>
+                <div class="data-content">
+                    <pre><code>{{ tx.input_data }}</code></pre>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>
