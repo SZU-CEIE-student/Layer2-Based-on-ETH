@@ -1,11 +1,11 @@
 # Python Flask L1 Explorer
 
-这是一个使用Python和Flask构建的Web应用程序，用于查看L1 sepolia链的区块链状态，并能够通过输入钱包地址查询该链的历史交易记录。
+这是一个使用Python和Flask构建的Web应用程序，用于查看L1链的区块链状态，并能够通过输入钱包地址查询该链的历史交易记录。
 
 ## 项目结构
 
 ```
-python-flask-l1-explorer
+L1chain_frontend
 ├── app.py                # 应用程序的入口文件
 ├── templates
 │   ├── index.html       # 主页面模板，用户输入钱包地址
@@ -19,7 +19,7 @@ python-flask-l1-explorer
 
 ## 功能
 
-- 查看L1 sepolia链的区块链状态
+- 查看L1链的区块链状态
 - 输入钱包地址查询历史交易记录
 
 ## 安装
@@ -27,7 +27,7 @@ python-flask-l1-explorer
 1. 克隆此项目：
    ```
    git clone <repository-url>
-   cd python-flask-l1-explorer
+   cd L1chain_frontend
    ```
 
 2. 创建并激活虚拟环境：
@@ -48,7 +48,7 @@ python-flask-l1-explorer
    python app.py
    ```
 
-2. 打开浏览器并访问 `http://127.0.0.1:5000`。
+2. 打开浏览器并访问 `http://127.0.0.1:11000`。
 
 3. 在主页面输入钱包地址以查询历史交易记录。
 

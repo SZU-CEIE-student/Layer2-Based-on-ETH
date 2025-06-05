@@ -32,6 +32,10 @@ pip install -r requirements.txt
 ```bash
 python src/generate_transactions.py
 ```
+如果python不可以用
+```bash
+python3 src/generate_transactions.py 
+```
 
 ## Contributing
 

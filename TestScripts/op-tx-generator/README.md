@@ -19,7 +19,7 @@ To get started, clone the repository and install the required dependencies:
 
 ```bash
 git clone <repository-url>
-cd anvil-tx-generator
+cd op-tx-generator
 pip install -r requirements.txt
 ```
 
@@ -30,9 +30,12 @@ pip install -r requirements.txt
 2. **Generate Transactions**: Run the `src/generate_transactions.py` script to initiate transactions between the defined accounts. This script will handle the logic for transferring funds and recording the transactions.
 
 ```bash
-python src/generate_transactions.py
+python src/generate_transactions.py 
 ```
-
+如果python不可以用
+```bash
+python3 src/generate_transactions.py 
+```
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a pull request or open an issue for any enhancements or bug fixes.
