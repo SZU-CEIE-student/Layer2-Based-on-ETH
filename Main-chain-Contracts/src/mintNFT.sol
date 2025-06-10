@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-import "openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 
 contract CoffeeAppleNFT is ERC721URIStorage {
-    uint256 private _tokenIds;
+    uint256 private _tokenIds; // 自增ID
 
     enum NFTType {
         Coffee,
@@ -22,10 +22,10 @@ contract CoffeeAppleNFT is ERC721URIStorage {
     constructor() ERC721("CoffeeAppleNFT", "CANFT") {
         typeToImageURI[
             NFTType.Coffee
-        ] = "https://images.unsplash.com/photo-1561047029-3000c68339ca";
+        ] = "https://gateway.lighthouse.storage/ipfs/bafkreiaie7ahc6qcan3ctdlxcga3vl2dkavdk6cf7xisg6dbowc3cetiyq";
         typeToImageURI[
             NFTType.Apple
-        ] = "https://images.unsplash.com/photo-1502741338009-cac2772e18bc";
+        ] = "https://gateway.lighthouse.storage/ipfs/bafkreic7opj6iagrl7bw54pzkly3rktyl3fbedlxsm4hhzq37qh3jkd4em";
     }
 
     function mintNFT(NFTType _nftType) external payable {
@@ -36,31 +36,9 @@ contract CoffeeAppleNFT is ERC721URIStorage {
         uint256 newTokenId = _tokenIds;
 
         _safeMint(msg.sender, newTokenId);
-
-        // 构造元数据JSON
-        string memory nftTypeStr = _nftType == NFTType.Coffee
-            ? "Coffee"
-            : "Apple";
-        string memory description = _nftType == NFTType.Coffee
-            ? "A delicious coffee NFT"
-            : "A fresh apple NFT";
-        string memory imageURI = typeToImageURI[_nftType];
-        string memory json = string(
-            abi.encodePacked(
-                '{"name":"',
-                nftTypeStr,
-                " #",
-                _toString(newTokenId),
-                '", "description":"',
-                description,
-                '", "image":"',
-                imageURI,
-                '"}'
-            )
-        );
-        string memory uri = string(
-            abi.encodePacked("data:application/json;utf8,", json)
-        );
+        string memory uri = _nftType == NFTType.Coffee
+            ? "https://gateway.lighthouse.storage/ipfs/bafkreidxxpd7npdj2mu7cwjxsfnjytyeoomn4th67avky4hj3ujduqgrju"
+            : "https://gateway.lighthouse.storage/ipfs/bafkreihpqkpxjnixgoykgisslewnbb4e7i4c74v65ayosdvr6ovw25bsru";
         _setTokenURI(newTokenId, uri);
 
         nftInfo[newTokenId] = NFTInfo({nftType: _nftType, price: price});

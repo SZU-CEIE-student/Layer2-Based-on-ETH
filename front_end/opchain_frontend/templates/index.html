@@ -4,22 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OP stack L2 监控面板</title>
+    <title>L2 监控面板</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script>
         function goToTransaction(hash) {
             window.location.href = '/transaction/' + hash;
-        }
-
-        function toggleTxs() {
-            const rows = document.querySelectorAll('.transaction-row');
-            const btn = document.getElementById('toggle-btn');
-            let expanded = btn.getAttribute('data-expanded') === 'true';
-            rows.forEach((row, idx) => {
-                if (idx >= 5) row.style.display = expanded ? 'none' : '';
-            });
-            btn.innerText = expanded ? '展开更多' : '收起';
-            btn.setAttribute('data-expanded', expanded ? 'false' : 'true');
         }
     </script>
 </head>
@@ -30,7 +19,7 @@
         <header>
             <div class="tech-header">
                 <div class="tech-line"></div>
-                <h1>OP stack L2 监控面板</h1>
+                <h1>L2 监控面板</h1>
                 <div class="tech-line"></div>
             </div>
         </header>
@@ -88,23 +77,22 @@
                                 <th>状态</th>
                             </tr>
                         </thead>
-                        <tbody id="tx-tbody">
+                        <tbody>
                             {% for tx in data.recent_txs %}
-                            <tr class="transaction-row" onclick="goToTransaction('{{ tx.hash }}')" {% if loop.index> 5
-                                %}style="display:none"{% endif %}>
+                            <tr class="transaction-row" onclick="goToTransaction('{{ tx.hash }}')">
                                 <td class="hash">{{ tx.hash[:10] }}...</td>
                                 <td><time>{{ tx.timestamp.strftime('%Y-%m-%d %H:%M:%S') if tx.timestamp else 'N/A'
                                         }}</time></td>
                                 <td class="address">
                                     {% if tx.from %}
-                                    {{ tx.from }}
+                                    {{ tx.from[:8] }}...
                                     {% else %}
                                     -
                                     {% endif %}
                                 </td>
                                 <td class="address">
                                     {% if tx.to %}
-                                    {{ tx.to }}
+                                    {{ tx.to[:8] }}...
                                     {% else %}
                                     合约创建
                                     {% endif %}
@@ -115,12 +103,6 @@
                             {% endfor %}
                         </tbody>
                     </table>
-                    {% if data.recent_txs|length > 5 %}
-                    <div style="text-align:center;margin-top:10px;">
-                        <button id="toggle-btn" onclick="toggleTxs()" data-expanded="false"
-                            style="padding:6px 18px;">展开更多</button>
-                    </div>
-                    {% endif %}
                 </div>
             </div>
 

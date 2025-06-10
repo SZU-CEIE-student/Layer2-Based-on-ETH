@@ -15,7 +15,7 @@ contract L2FastBridge {
     address public owner;
     address public l2StandardBridge;
     address public liquidityProvider;
-    
+
     // 用于跟踪提款请求的事件
     event FastWithdrawalInitiated(
         address indexed user,
@@ -23,26 +23,26 @@ contract L2FastBridge {
         uint256 amount,
         uint256 requestId
     );
-    
+
     // 用于跟踪每个用户的提款请求ID
     uint256 private requestIdCounter;
-    
+
     constructor(address _l2StandardBridge, address _liquidityProvider) {
         owner = msg.sender;
         l2StandardBridge = _l2StandardBridge;
         liquidityProvider = _liquidityProvider;
     }
-    
+
     // 用户调用此函数发起快速提款
     function fastWithdraw(address _recipient) external payable {
         require(msg.value > 0, "Must send ETH");
-        
+
         // 生成唯一的请求ID
         uint256 requestId = requestIdCounter++;
-        
+
         // 向LP转账资金
         payable(liquidityProvider).transfer(msg.value);
-        
+
         // 发出事件通知中继器
         emit FastWithdrawalInitiated(
             msg.sender,
@@ -51,11 +51,14 @@ contract L2FastBridge {
             requestId
         );
     }
-    
+
     // 只有LP可以调用这个函数来发起标准提款
-    function initiateStandardWithdrawal(address _recipient, uint256 _amount) external {
+    function initiateStandardWithdrawal(
+        address _recipient,
+        uint256 _amount
+    ) external {
         require(msg.sender == liquidityProvider, "Only LP can call");
-        
+
         // 调用标准桥合约触发正常提款流程
         IL2StandardBridge(l2StandardBridge).withdrawTo(
             address(0), // ETH表示为0地址
@@ -65,13 +68,13 @@ contract L2FastBridge {
             bytes("") // 空数据
         );
     }
-    
+
     // 更新LP地址
     function setLiquidityProvider(address _newLP) external {
         require(msg.sender == owner, "Only owner");
         liquidityProvider = _newLP;
     }
-    
+
     // 接收ETH
     receive() external payable {}
 }

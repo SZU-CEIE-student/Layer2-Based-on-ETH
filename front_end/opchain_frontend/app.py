@@ -10,9 +10,6 @@ app = Flask(__name__)
 # w3 = Web3(Web3.HTTPProvider('https://eth-sepolia.g.alchemy.com/v2/nGlsCbulIAOJo8_WeMmi-n7uWM3lW2fg'))
 #w3 = Web3(Web3.HTTPProvider('https://eth-sepolia.g.alchemy.com/v2/nGlsCbulIAOJo8_WeMmi-n7uWM3lW2fg'))
 w3 = Web3(Web3.HTTPProvider('http://localhost:9545'))
-
-RECENT_TX_COUNT = 20
-
 @app.route('/')
 def index():
     chain_data = {
@@ -30,7 +27,7 @@ def index():
         txs = []
         latest_block = w3.eth.block_number
         # 遍历最近10个区块，收集交易
-        for block_num in range(latest_block, max(latest_block - 300, -1), -1):
+        for block_num in range(latest_block, max(latest_block - 100, -1), -1):
             block = w3.eth.get_block(block_num, full_transactions=True)
             for tx_data in block.transactions:
                 block_time = datetime.fromtimestamp(block['timestamp'])
@@ -41,9 +38,9 @@ def index():
                     "value": w3.from_wei(tx_data["value"], 'ether'),
                     "timestamp": block_time
                 })
-                if len(txs) >= RECENT_TX_COUNT:
+                if len(txs) >= 5:
                     break
-            if len(txs) >= RECENT_TX_COUNT:
+            if len(txs) >= 5:
                 break
 
         chain_data["recent_txs"] = txs
@@ -103,7 +100,7 @@ def transactions():
         transactions = []
         latest_block = w3.eth.block_number
         # 只查最近的100个区块，防止太慢
-        for block_num in range(max(0, latest_block - 300), latest_block + 1):
+        for block_num in range(max(0, latest_block - 100), latest_block + 1):
             block = w3.eth.get_block(block_num, full_transactions=True)
             for tx in block.transactions:
                 if tx['from'] == address or tx['to'] == address:

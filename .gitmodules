@@ -4,3 +4,9 @@
 [submodule "Main-chain-Contracts/lib/openzeppelin-contracts"]
 	path = Main-chain-Contracts/lib/openzeppelin-contracts
 	url = https://github.com/OpenZeppelin/openzeppelin-contracts
+[submodule "Cross-chain-bridge/contracts/lib/forge-std"]
+	path = Cross-chain-bridge/contracts/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
+[submodule "Cross-chain-bridge/lib/forge-std"]
+	path = Cross-chain-bridge/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
